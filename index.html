@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Aroma Lume | Loja Online - Velas Aromáticas Artesanais</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Compre velas aromáticas artesanais Aroma Lume: cera vegetal, fragrâncias premium de Viseu. Entrega em todo Portugal.">
+    <style>
+        :root {
+            --bg: #fffaf5;
+            --primary: #b0654b;
+            --secondary: #f0d3b4;
+            --text: #3b2a26;
+            --accent: #e9a66b;
+            --success: #4a8f5a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f6e2cf, #fbeee1);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+        }
+
+        .logo span {
+            font-family: Georgia, serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: var(--text);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        .hero-shop {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(240,211,180,0.15), rgba(255,242,225,0.3));
+            border-radius: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-shop h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-shop p {
+            font-size: 1.1rem;
+            color: #6a463b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--secondary);
+            background: white;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.12);
+        }
+
+        .product-image {
+            height: 280px;
+            background: linear-gradient(135deg, #f8e8d9, #f0d3b4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .product-stock {
+            color: var(--success);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #8f4f3a;
+        }
+
+        .add-to-cart:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 40px rgba(0,0,0,0.15);
+            transition: right 0.3s ease;
+            z-index: 200;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-total {
+            padding: 1.5rem 0;
+            border-top: 2px solid var(--primary);
+            margin-top: 1rem;
+        }
+
+        .total-price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 999px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 150;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        footer {
+            background: #f6e2cf;
+            padding: 2rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+            .filters {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="1000007280-removebg-preview.png" alt="Aroma Lume" width="140" height="60">
+        <span>Aroma Lume</span>
+    </div>
+    <button class="cart-btn" onclick="toggleCart()">
+        Carrinho <span class="cart-count" id="cartCount">0</span>
+    </button>
+</header>
+
+<main>
+    <section class="hero-shop">
+        <h1>Loja Online</h1>
+        <p>Velas aromáticas artesanais de Viseu. Cera vegetal 100%, fragrâncias premium. Entrega em todo Portugal.</p>
+    </section>
+
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="floral">Florais</button>
+        <button class="filter-btn" data-filter="madeira">Madeira</button>
+        <button class="filter-btn" data-filter="especiarias">Especiarias</button>
+        <button class="filter-btn" data-filter="sazonal">Sazonal</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+        <!-- Produtos serão inseridos via JavaScript -->
+    </div>
+</main>
+
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h2>Carrinho (<span id="cartItemsCount">0</span>)</h2>
+        <button class="close-cart" onclick="toggleCart()">&times;</button>
+    </div>
+    <div id="cartItems"></div>
+    <div class="cart-total">
+        <div class="total-price" id="cartTotal">€ 0,00</div>
+        <button class="checkout-btn" onclick="checkout()">Finalizar Compra</button>
+    </div>
+</div>
+
+<footer>
+    <p>© 2025 Aroma Lume · Viseu, Portugal | Entrega em todo o país</p>
+</footer>
+
+<script>
+const products = [
+    { id: 1, name: "Lavanda Serenidade", price: 18.90, stock: 12, category: "floral", image: "🪻" },
+    { id: 2, name: "Canela Quente", price: 22.50, stock: 8, category: "especiarias", image: "🌰" },
+    { id: 3, name: "Sândalo Luxo", price: 28.90, stock: 15, category: "madeira", image: "🌲" },
+    { id: 4, name: "Rosa Vintage", price: 19.90, stock: 20, category: "floral", image: "🌹" },
+    { id: 5, name: "Natal Encantado", price: 24.90, stock: 6, category: "sazonal", image: "🎄" },
+    { id: 6, name: "Baunilha Doce", price: 17.90, stock: 18, category: "especiarias", image: "🍯" },
+    { id: 7, name: "Cedro & Limão", price: 21.50, stock: 10, category: "madeira", image: "🍋" },
+    { id: 8, name: "Jasmim Noturno", price: 20.90, stock: 14, category: "floral", image: "🌙" },
+    { id: 9, name: "Páscoa Floral", price: 23.90, stock: 9, category: "sazonal", image: "🐣" }
+];
+
+let cart = [];
+
+function renderProducts(filter = 'all') {
+    const grid = document.getElementById('productsGrid');
+    const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+    
+    grid.innerHTML = filtered.map(product => `
+        <div class="product-card">
+            <div class="product-image">${product.image}</div>
+            <div class="product-info">
+                <div class="product-title">${product.name}</div>
+                <div class="product-price">€ ${product.price.toFixed(2)}</div>
+                <div class="product-stock">${product.stock} em stock</div>
+                <button class="add-to-cart" onclick="addToCart(${product.id})"
+                    ${product.stock === 0 ? 'disabled' : ''}>
+                    ${product.stock === 0 ? 'Esgotado' : 'Adicionar ao Carrinho'}
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    const cartItem = cart.find(item => item.id === productId);
+    
+    if (cartItem) {
+        if (cartItem.quantity < product.stock) {
+            cartItem.quantity++;
+        }
+    } else {
+        cart.push({ ...product, quantity: 1 });
+    }
+    updateCart();
+}
+
+function updateCart() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cartCount').textContent = totalItems;
+    document.getElementById('cartItemsCount').textContent = totalItems;
+    
+    const cartItemsEl = document.getElementById('cartItems');
+    if (cart.length === 0) {
+        cartItemsEl.innerHTML = '<p style="text-align: center; color: #999;">Carrinho vazio</p>';
+    } else {
+        cartItemsEl.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <div style="font-size: 2rem;">${item.image}</div>
+                <div class="cart-item-info">
+                    <div class="cart-item-title">${item.name}</div>
+                    <div class="cart-item-price">€ ${item.price.toFixed(2)}</div>
+                    <div class="quantity-controls">
+                        <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                    </div>
+                </div>
+                <button class="qty-btn" style="background: #ff4444; color: white;" onclick="removeFromCart(${item.id})">×</button>
+            </div>
+        `).join('');
+    }
+    
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    document.getElementById('cartTotal').textContent = `€ ${total.toFixed(2)}`;
+}
+
+function changeQty(productId, delta) {
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+            cart = cart.filter(i => i.id !== productId);
+        } else if (item.quantity > item.stock) {
+            item.quantity = item.stock;
+        }
+        updateCart();
+    }
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCart();
+}
+
+function toggleCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('overlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+}
+
+function checkout() {
+    if (cart.length === 0) return;
+    alert(`Ótimo! Total: € ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}\n\nEm breve: integração com MB Way, Multibanco e entrega!\nObrigado pela preferência Aroma Lume ❤️`);
+    cart = [];
+    updateCart();
+    toggleCart();
+}
+
+// Filters
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelector('.filter-btn.active').classList.remove('active');
+        btn.classList.add('active');
+        renderProducts(btn.dataset.filter);
+    });
+});
+
+renderProducts();
+updateCart();
+</script>
+
+</body>
+</html>
