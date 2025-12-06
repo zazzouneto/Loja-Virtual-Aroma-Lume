@@ -430,36 +430,34 @@ function renderProducts(filter = 'all') {
     const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
     
     grid.innerHTML = filtered.map(product => `
-    <div class="product-card">
-        <div class="product-image">
-            <img src="${product.image}" alt="${product.name}">
+        <div class="product-card">
+            <div class="product-image">
+                <img src="${product.image}" alt="${product.name}">
+            </div>
+            <div class="product-info">
+                <div class="product-title">${product.name}</div>
+                <div class="product-price">€ ${product.price.toFixed(2)}</div>
+                <div class="product-stock">${product.stock} em stock</div>
+
+                <label style="font-size:0.85rem;margin-bottom:0.3rem;display:block;">
+                    Essência
+                </label>
+                <select class="essencia-select" data-product-id="${product.id}" style="width:100%;margin-bottom:0.8rem;padding:0.4rem;border-radius:999px;border:1px solid #e0d4c5;">
+                    <option value="">Escolha a essência…</option>
+                    <option value="lavanda">Lavanda</option>
+                    <option value="baunilha">Baunilha</option>
+                    <option value="canela">Canela</option>
+                    <option value="jasmim">Jasmim</option>
+                    <option value="cedro">Cedro</option>
+                </select>
+
+                <button class="add-to-cart" onclick="addToCart(${product.id})"
+                    ${product.stock === 0 ? 'disabled' : ''}>
+                    ${product.stock === 0 ? 'Esgotado' : 'Adicionar ao Carrinho'}
+                </button>
+            </div>
         </div>
-        <div class="product-info">
-            <div class="product-title">${product.name}</div>
-            <div class="product-price">€ ${product.price.toFixed(2)}</div>
-            <div class="product-stock">${product.stock} em stock</div>
-
-            <label style="font-size:0.85rem;margin-bottom:0.3rem;display:block;">
-                Essência
-            </label>
-            <select class="essencia-select" data-product-id="${product.id}" style="width:100%;margin-bottom:0.8rem;padding:0.4rem;border-radius:999px;border:1px solid #e0d4c5;">
-                <option value="">Escolha a essência…</option>
-                <option value="lavanda">Lavanda</option>
-                <option value="baunilha">Baunilha</option>
-                <option value="canela">Canela</option>
-                <option value="jasmim">Jasmim</option>
-                <option value="cedro">Cedro</option>
-                <!-- depois pode editar essa lista como quiser -->
-            </select>
-
-            <button class="add-to-cart" onclick="addToCart(${product.id})"
-                ${product.stock === 0 ? 'disabled' : ''}>
-                ${product.stock === 0 ? 'Esgotado' : 'Adicionar ao Carrinho'}
-            </button>
-        </div>
-    </div>
-`).join('');
-
+    `).join('');
 }
 
 
@@ -579,6 +577,7 @@ updateCart();
 
 </body>
 </html>
+
 
 
 
