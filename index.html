@@ -463,8 +463,6 @@ function renderProducts(filter = 'all') {
 
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
-
-    // pegar a essência escolhida no select daquele produto
     const select = document.querySelector(`.essencia-select[data-product-id="${productId}"]`);
     const essencia = select ? select.value : '';
 
@@ -577,6 +575,7 @@ updateCart();
 
 </body>
 </html>
+
 
 
 
