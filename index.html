@@ -444,12 +444,13 @@ function renderProducts(filter = 'all') {
             </label>
             <select class="essencia-select" data-product-id="${product.id}" style="width:100%;margin-bottom:0.8rem;padding:0.4rem;border-radius:999px;border:1px solid #e0d4c5;">
                 <option value="">Escolha a essência…</option>
-                <option value="Lavanda">Lavanda</option>
-                <option value="Baby Classic">Baunilha</option>
-                <option value="Delicias de Natal">Canela</option>
-                <option value="Caramelo Spicy">Jasmim</option>
-                <option value="Baunilha & Lichia">Cedro</option>
-                            </select>
+                <option value="lavanda">Lavanda</option>
+                <option value="baunilha">Baunilha</option>
+                <option value="canela">Canela</option>
+                <option value="jasmim">Jasmim</option>
+                <option value="cedro">Cedro</option>
+                <!-- depois pode editar essa lista como quiser -->
+            </select>
 
             <button class="add-to-cart" onclick="addToCart(${product.id})"
                 ${product.stock === 0 ? 'disabled' : ''}>
@@ -578,6 +579,7 @@ updateCart();
 
 </body>
 </html>
+
 
 
 
